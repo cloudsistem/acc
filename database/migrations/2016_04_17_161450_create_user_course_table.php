@@ -13,7 +13,7 @@ class CreateUserCourseTable extends Migration
     public function up()
     {
         Schema::create('user_course',function(Blueprint $table){            
-            $table->boolean('is_activity');            
+            $table->boolean('is_active');            
             $table->softDeletes();
             $table->timestamps();
         }
