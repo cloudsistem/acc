@@ -19,9 +19,9 @@ class CreateProfileTable extends Migration
             $table->softDeletes();                       
         });
         
-        Schema::table('user', function ($table) {
+        Schema::table('profile', function ($table) {
             $table->integer('user_id')->unsigned();
-            $table->foreign('user_id')->references('id')->on('user');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

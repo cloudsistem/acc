@@ -26,7 +26,7 @@ class CreateUserActivityTable extends Migration
             $table->primary(['system_files_id','user_id','activity_id']);
             
             $table->foreign('system_files_id')->references('id')->on('system_files');
-            $table->foreign('user_id')->references('id')->on('user');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('activity_id')->references('id')->on('activity');
             
             
