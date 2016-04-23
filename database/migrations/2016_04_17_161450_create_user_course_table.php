@@ -22,7 +22,7 @@ class CreateUserCourseTable extends Migration
         Schema::table('user_course', function ($table) {
             $table->integer('user_id')->unsigned();
             $table->integer('course_id')->unsigned();;
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('User');
             $table->foreign('course_id')->references('id')->on('course');
             $table->primary(['user_id','course_id']);
         });

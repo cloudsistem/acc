@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\User;
+use App\Model\Users;
+use App\Model\Account;
+use App\Model\Profile;
 use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
@@ -10,16 +12,7 @@ use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 
 class AuthController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Registration & Login Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles the registration of new users, as well as the
-    | authentication of existing users. By default, this controller uses
-    | a simple trait to add these behaviors. Why don't you explore it?
-    |
-    */
+ 
 
     use AuthenticatesAndRegistersUsers, ThrottlesLogins;
 
@@ -28,7 +21,7 @@ class AuthController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/';
+    protected $redirectTo = '/dashboard';
 
     /**
      * Create a new authentication controller instance.
@@ -61,14 +54,20 @@ class AuthController extends Controller
      *
      * @param  array  $data
      * @return User
-     */
+     
     protected function create(array $data)
     {
-        return User::create([
-            'name' => $data['name'],
-            'username' => $data['username'],
-            'email' => $data['email'],
-            'password' => bcrypt($data['password']),
-        ]);
-    }
+        $user = New Users();
+        $user->save();
+        
+        $acc = New Account();
+        $acc->name = $data['username'];
+        $acc->email = $data['email'];
+        $acc->password = Hash::make($data['password']);
+        $acc->user_id = $user->id;
+        $acc->save();
+        
+        return $acc;
+        
+    }*/
 }

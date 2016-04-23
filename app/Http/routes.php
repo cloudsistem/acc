@@ -1,20 +1,24 @@
 <?php
 
-/*Route::get('/',['middleware' =>'VerifiedSession',function(){
+Route::get('/',function(){
     return view('home/index');
-}]);*/
+});
 
-Route::get('/', ['middleware' => 'VerifiedSession', function () {
-    //
-}]);
-
-Route::get('/login',function(){
+Route::get('/new/login',function(){
     return view('auth/login');
 });
 
-Route::get('/register',function(){
-    return view('auth/register');
+Route::post('/new/login',['as' => 'authRegister', 'uses' => 'UserController@login',function () {
+    return Response::json(['lixo' => true], 404);
+}] );
+
+Route::get('/new/user',function(){
+     return view('auth/register');
 });
+
+Route::post('/new/user',['as' => 'authRegister', 'uses' => 'UserController@create',function () {
+    return Response::json(['lixo' => true], 404);
+}] );
 
 Route::get('/dashboard',function(){
     return view('dashboard');
