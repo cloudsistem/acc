@@ -13,9 +13,9 @@ class Account extends Model
     protected $fillable   = [
         'email', 'password', 'username'
     ];                            
-    protected $hidden = [
+    /*protected $hidden = [
         'password', 'remember_token',
-    ];
+    ];*/
     
     public function user()
     {

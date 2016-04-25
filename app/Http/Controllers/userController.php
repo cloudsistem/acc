@@ -35,15 +35,15 @@ class UserController extends Controller
     }
     
     protected function login(Request $Request){
-       //return dd(session_id());
-       $var = $Request->session()->all();
-       return dd($var);   
+       //$var = $Request->session()->all();
+       //return dd($var);   
        
        $user = Model\Account::where('username',$Request['username'])->first();
        if(isset($user)){
            if (Hash::check($Request['password'], $user->password))
                 {
-                    Session::put('user_id',$user->user_id);
+                    $Request->Session()->put('usuarios',$user->toArray());
+                    //return var_dump($user);
                     return view('aluno/showActivities');
                 }
            else{
@@ -53,5 +53,25 @@ class UserController extends Controller
        else{
            return dd('Usuário não existe'); 
        }
+    }
+ //$sessao = $Request->session()->get('usuarios');
+            //$sessao = $Request->session(); 
+            //return dd($sessao);
+            //return dd($Request->session()->has('usuarios'));  
+    protected function VerificaSessao(Request $Request){
+        if ($Request->session()){
+            
+            if ($Request->session()->has('usuarios')){
+                
+                return view('aluno/showActivities');
+            }
+            else{
+                return dd('not have session');
+            }
+            
+        }
+        else{
+            return dd('not have session');
+        }
     }
 }

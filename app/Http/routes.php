@@ -4,12 +4,17 @@ Route::get('/',function(){
     return view('home/index');
 });
 
-Route::get('/new/login',function(){
-    return view('auth/login');
-});
+/*Route::get('/new/login',function(){
+   return view('auth/login');
+});*/
+
+
+Route::get('/new/login',['as' => 'authRegister', 'uses' => 'UserController@VerificaSessao',function () {
+    return Response::json(['lixo' => true], 404);
+}] );
 
 Route::post('/new/login',['as' => 'authRegister', 'uses' => 'UserController@login',function () {
-    return Response::json(['lixo' => true], 404);
+    return Response::json(['Não realizou o login' => true], 404);
 }] );
 
 Route::get('/new/user',function(){
