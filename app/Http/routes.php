@@ -1,37 +1,56 @@
 <?php
+/** DEVELOPED BY THIAGO HENRIQUE GOMES BRANDAO **/
 
+/** VIEWS LEVEL 0 **/
 Route::get('/',function(){
     return view('home/index');
 });
 
-/*Route::get('/new/login',function(){
-   return view('auth/login');
-});*/
+/** VIEWS LEVEL 2 **/
 
+Route::get('/dashboard', ['middleware' => 'SessionExist',function(){
+       return view('dashboard');
+}]); 
+
+Route::get('/me/profile',['middleware' => 'SessionExist',function(){
+    return view('/profile/editProfile');
+}]);
+
+Route::get('/me/account',['middleware' => 'SessionExist',function(){
+    return view('/profile/editAccount');
+}]);
+
+/** VIEWS LEVEL 4 **/
+
+Route::get('/new/user',['as' => 'authRegister', 'uses' => 'UserController@VerificaSessao',function(){
+     return view('auth/register');
+}]);
+
+Route::post('/new/user',['as' => 'authRegister', 'uses' => 'UserController@create',function () {
+    return view('errors/404');
+}] );
 
 Route::get('/new/login',['as' => 'authRegister', 'uses' => 'UserController@VerificaSessao',function () {
-    return Response::json(['lixo' => true], 404);
+    return view('errors/404');
 }] );
 
 Route::post('/new/login',['as' => 'authRegister', 'uses' => 'UserController@login',function () {
-    return Response::json(['Não realizou o login' => true], 404);
+    return view('erros/503');
 }] );
 
-Route::get('/new/user',function(){
-     return view('auth/register');
-});
+/** VIEWS LEVEL 5 **/  
 
-Route::post('/new/user',['as' => 'authRegister', 'uses' => 'UserController@create',function () {
-    return Response::json(['lixo' => true], 404);
-}] );
+Route::get('/new/activity',['middleware' => ['SessionExist','AuthStudent'],function(){
+    return view('/aluno/addActivity');
+}]);
 
-Route::get('/dashboard',function(){
-    return view('dashboard');
-});
+Route::get('/me/activities',['middleware' => ['SessionExist','AuthStudent'],function(){
+    return view('/aluno/showactivities');
+}]);
+ 
+ // see later route /me/activity/{hexadecimal} 
 
-Route::get('/new/course',function(){
-    return view('/course/addCourse');
-});
+/**  VIEWS LEVEL 6 **/
 
 Route::get('/add/activity',function(){
     return view('/course/activity/addActivity');
@@ -41,24 +60,8 @@ Route::get('/course_project/settings',function(){
     return view('/course/project/settings');
 });
 
-Route::get('/new/activity',function(){
-    return view('/aluno/addActivity');
-});
-
-Route::get('/me/profile',function(){
-    return view('/profile/editProfile');
-});
-
-Route::get('/me/activities',function(){
-    return view('/aluno/showactivities');
-});
-
 Route::get('/dashboard/activities',function(){
     return view('/course/activity/showactivities');
-});
-
-Route::get('/dashboard/courses',function(){
-    return view('/course/showcourses');
 });
 
 Route::get('/course/{slug}/settings',function(){
@@ -69,5 +72,14 @@ Route::get('/course/activity/{slug}/settings',function(){
     return view('/course/activity/settings');
 });
 
-Route::Auth();
+/** VIEWS LEVEL 7 **/
+
+Route::get('/new/course',function(){
+    return view('/course/addCourse');
+});
+
+Route::get('/dashboard/courses',function(){
+    return view('/course/showcourses');
+});
+
 ?>

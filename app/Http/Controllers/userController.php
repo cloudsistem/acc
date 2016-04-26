@@ -35,15 +35,12 @@ class UserController extends Controller
     }
     
     protected function login(Request $Request){
-       //$var = $Request->session()->all();
-       //return dd($var);   
-       
+           
        $user = Model\Account::where('username',$Request['username'])->first();
        if(isset($user)){
            if (Hash::check($Request['password'], $user->password))
                 {
-                    $Request->Session()->put('usuarios',$user->toArray());
-                    //return var_dump($user);
+                    $Request->Session()->put('usuarios',$user->user_id);
                     return view('aluno/showActivities');
                 }
            else{
@@ -54,24 +51,33 @@ class UserController extends Controller
            return dd('Usuário não existe'); 
        }
     }
- //$sessao = $Request->session()->get('usuarios');
-            //$sessao = $Request->session(); 
-            //return dd($sessao);
-            //return dd($Request->session()->has('usuarios'));  
+  
     protected function VerificaSessao(Request $Request){
         if ($Request->session()){
-            
-            if ($Request->session()->has('usuarios')){
+            if ($Request->session()->has('usuarios')){              
+                $curso = Model\Course::where('user_id',$Request->session()->get('usuarios'));
+                if (!isset($curso)){
+                   return View('course/activity/showActivities');
+                }
+                else{
+                   return View('aluno/showActivities');
+                }
                 
-                return view('aluno/showActivities');
             }
             else{
-                return dd('not have session');
-            }
-            
+                if ($Request->path() == 'new/user'){
+                    return view('auth/register');
+                }
+                else if ($Request->path() == 'new/login'){
+                    return view('auth/login');
+                }
+                else{
+                    return view('errors/404');
+                }
+            }            
         }
         else{
-            return dd('not have session');
+            return view('errors/404');
         }
     }
 }
