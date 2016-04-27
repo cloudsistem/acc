@@ -10,6 +10,16 @@ class User extends Model
 {
     protected $table = 'user';
     protected $connection = 'mysql';
+    protected $guard = ['is_admin'];
+    
+    protected $casts = [
+        'is_admin' => 'boolean',
+    ];
+    
+    public function isAdmin()
+    {
+        return $this->is_admin;
+    }
     
     public function account(){
         return $this->hasOne('App\Model\Account');

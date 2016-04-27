@@ -3,6 +3,8 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use App\Model;
+use Session;
 
 class AuthCoordinator
 {
@@ -17,7 +19,7 @@ class AuthCoordinator
     {
         $user_id = $request->session()->get('usuarios');
         $student = Model\Course::where('user_id',$user_id)->limit(1);
-        if(isset($student->user_id)){
+        if($student->user_id <> null){
             return $next($request);
         }
         else{

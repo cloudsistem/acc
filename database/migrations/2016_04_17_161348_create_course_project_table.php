@@ -12,7 +12,7 @@ class CreateCourseProjectTable extends Migration
      */
     public function up()
     {
-        Schema::create('course_projet',function(Blueprint $table){
+        Schema::create('course_project',function(Blueprint $table){
             $table->increments('id');           
             $table->double('hours_min',4,2);
             $table->timestamps();
@@ -20,7 +20,7 @@ class CreateCourseProjectTable extends Migration
         }
         );
         
-        Schema::table('course_projet', function ($table) {
+        Schema::table('course_project', function ($table) {
             $table->integer('course_id')->unsigned();
             $table->foreign('course_id')->references('id')->on('course');
         });

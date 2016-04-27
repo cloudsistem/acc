@@ -56,6 +56,10 @@ Route::get('/add/activity',function(){
     return view('/course/activity/addActivity');
 });
 
+Route::post('/add/activity',['uses' => 'activityController@create',function(){
+    return view('/course/activity/addActivity');
+}]);
+
 Route::get('/course_project/settings',function(){
     return view('/course/project/settings');
 });
@@ -77,6 +81,10 @@ Route::get('/course/activity/{slug}/settings',function(){
 Route::get('/new/course',function(){
     return view('/course/addCourse');
 });
+
+Route::post('/new/course',['uses' => 'courseController@create',function(){
+    return Response()->json($request);
+}]);
 
 Route::get('/dashboard/courses',function(){
     return view('/course/showcourses');

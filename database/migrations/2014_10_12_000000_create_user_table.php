@@ -12,8 +12,9 @@ class CreateUserTable extends Migration
      */
     public function up()
     {
-        Schema::create('User', function (Blueprint $table) {
+        Schema::create('user', function (Blueprint $table) {
             $table->increments('id');
+            $table->boolean('is_admin')->default(false);
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();
@@ -27,6 +28,6 @@ class CreateUserTable extends Migration
      */
     public function down()
     {
-        Schema::drop('User');
+        Schema::drop('user');
     }
 }
