@@ -12,7 +12,7 @@
             <p><input type="text" name="description" placeholder="Insira a descrição do curso"></p>
             
             <label>Horas por inclusão:</label>
-            <p><input type="number" name="hours_max" placeholder="Insira a quantidade de horas por inclusão"></p>
+            <p><input type="number" name="hours" placeholder="Insira a quantidade de horas por inclusão"></p>
             
             <label>Horas Máximas:</label>
             <p><input type="number" name="hours_max" placeholder="Insira as horas mínimas do curso"></p>

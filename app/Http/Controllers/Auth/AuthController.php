@@ -21,7 +21,7 @@ class AuthController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/dashboard';
+    protected $redirectTo = '/';
 
     /**
      * Create a new authentication controller instance.
@@ -42,8 +42,8 @@ class AuthController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => 'required|max:255',
-            'username' => 'required|max:255',
+            'name' => 'required|max:64',
+            'username' => 'required|max:45',
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|min:6|confirmed',
         ]);
@@ -53,12 +53,17 @@ class AuthController extends Controller
      * Create a new user instance after a valid registration.
      *
      * @param  array  $data
-     * @return User
+     * @return User **/
      
     protected function create(array $data)
     {
         $user = New Users();
         $user->save();
+        
+        $profile = New Profile();
+        $profile->user_id = $user->id;
+        $profile->name = $data['name'];
+        $profile->save();        
         
         $acc = New Account();
         $acc->name = $data['username'];
@@ -67,7 +72,8 @@ class AuthController extends Controller
         $acc->user_id = $user->id;
         $acc->save();
         
-        return $acc;
         
-    }*/
+        return dd($acc);
+        
+    }
 }

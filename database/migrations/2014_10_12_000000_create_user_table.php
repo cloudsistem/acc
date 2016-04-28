@@ -14,8 +14,7 @@ class CreateUserTable extends Migration
     {
         Schema::create('user', function (Blueprint $table) {
             $table->increments('id');
-            $table->boolean('is_admin')->default(false);
-            $table->rememberToken();
+            $table->boolean('is_admin')->default(false);           
             $table->timestamps();
             $table->softDeletes();
         });

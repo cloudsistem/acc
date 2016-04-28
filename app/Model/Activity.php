@@ -9,6 +9,7 @@ class Activity extends Model
     protected $table = 'activity';
     protected $connection = 'mysql';
     protected $fillable = ['title',
+                            'description',
                             'hours',
                             'hours_max',
                             'score_id',

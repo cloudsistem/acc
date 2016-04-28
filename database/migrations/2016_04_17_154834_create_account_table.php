@@ -18,6 +18,7 @@ class CreateAccountTable extends Migration
             $table->string('password',60);
             $table->string('username',45)->unique();
             $table->softDeletes();
+            $table->rememberToken();
             $table->timestamps();      
         }
         );

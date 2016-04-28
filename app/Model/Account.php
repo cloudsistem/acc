@@ -3,8 +3,11 @@
 namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Auth\Authenticatable;
+use Illuminate\Auth\Passwords\CanResetPassword;
+use Illuminate\Auth\Reminders\RemindableInterface;
 
-class Account extends Model
+class Account extends Model 
 {
     //ATRIBUTOS
     

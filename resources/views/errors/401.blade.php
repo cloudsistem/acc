@@ -1,3 +1,6 @@
+@extends('layouts.app')
+
+@section('content')
 <html>
     <head>
         <title>404</title>
@@ -10,3 +13,4 @@
         </section>
     </body>
 </html>
+@endsection

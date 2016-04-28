@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use Session;
+use Auth;
 use Hash;
+use View;
 use App\Model;
+use Validator;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 use Illuminate\Session\Store;
@@ -16,6 +19,14 @@ class UserController extends Controller
     { }
     
     protected function create(Request $Request){
+        /*$teste = array('name' => $Request['name'], 
+                       'username' => $Request['username'],
+                       'email' => $Request['email'],
+                       'password' => Hash::make($Request['password'])
+                       );
+       
+        */      
+        
         $user = New Model\User();
         $user->save();
                
@@ -35,7 +46,7 @@ class UserController extends Controller
     }
     
     protected function login(Request $Request){
-           
+         
        $user = Model\Account::where('username',$Request['username'])->first();
        if(isset($user)){
            if (Hash::check($Request['password'], $user->password))
@@ -53,6 +64,7 @@ class UserController extends Controller
     }
   
     protected function VerificaSessao(Request $Request){
+        
         if ($Request->session()){
             if ($Request->session()->has('usuarios')){              
                 $curso = Model\Course::where('user_id',$Request->session()->get('usuarios'));
@@ -66,10 +78,12 @@ class UserController extends Controller
             }
             else{
                 if ($Request->path() == 'new/user'){
-                    return view('auth/register');
+                    return view('auth/register');                   
                 }
                 else if ($Request->path() == 'new/login'){
-                    return view('auth/login');
+                    //$courses = Model\Course::all();
+                   // return view('auth/login')->with('courses',$courses);
+                   return view('auth/login');
                 }
                 else{
                     return view('errors/404');
